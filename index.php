@@ -3,24 +3,24 @@ require('DataTable.php');
 
 use DT_library\DataTable;
 
-//$data = [
-//    [
-//        'name' => 'Abdus Samad',
-//        'email' => 'samadocpl@gmail.com'
-//    ],
-//    [
-//        'name' => 'Ibrahim Ahad',
-//        'email' => 'ahad@gmail.com'
-//    ]
-//];
 $data = [
+    [
         'name' => 'Abdus Samad',
         'email' => 'samadocpl@gmail.com'
+    ],
+    [
+        'name' => 'Ibrahim Ahad',
+        'email' => 'ahad@gmail.com'
+    ]
 ];
+//$data = [
+//        'name' => 'Abdus Samad',
+//        'email' => 'samadocpl@gmail.com'
+//];
 
 
 $table = new DataTable();
-$html_table = $table->toTable($data);
+$html_table = $table->of($data)->toTable();
 //var_dump($html_table);
 ?>
 
@@ -47,6 +47,24 @@ $html_table = $table->toTable($data);
     </p>
 
     <?php echo $html_table; ?>
+
+
+<!--    --><?php //if (count($data) > 0): ?>
+<!--        <table class="table table-bordered">-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                <th>--><?php //echo implode('</th><th>', array_keys(current($data))); ?><!--</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            --><?php //foreach ($data as $row): array_map('htmlentities', $row); ?>
+<!--                <tr>-->
+<!--                    <td>--><?php //echo implode('</td><td>', $row); ?><!--</td>-->
+<!--                </tr>-->
+<!--            --><?php //endforeach; ?>
+<!--            </tbody>-->
+<!--        </table>-->
+<!--    --><?php //endif; ?>
 </div>
 
 <script

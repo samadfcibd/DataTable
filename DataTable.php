@@ -13,37 +13,56 @@ class DataTable
 
     private $keys;
 
+    private $data;
+
     protected static $key_count;
 
-    public function toTable($array)
+    public function of($array)
     {
-        $this->keys = self::get_array_keys($array);
-
-        $table_head_columns = '<thead>';
-        $table_body_columns = '<tbody>';
-
-        if ($this->input_type == 1)
-        {
-            foreach ($array as $key => $value)
-            {
-                $table_head_columns .= '<th>' . $key . '</th>';
-                $table_body_columns .= '<tr><td>' . $value . '</td></tr>';
-            }
+        if (count($array) != count($array, COUNT_RECURSIVE)) {
+            $this->input_type = 2;
+            $this->data = $array;
         } else {
-            foreach ($this->keys as $key) {
-                $table_head_columns .= '<th>' . $key . '</th>';
+            $this->input_type = 1;
+            $this->data = $array;
+        }
+        return $this;
+    }
 
-                $column_values = array_column($array, $key);
+    public function toTable()
+    {
+        if ($this->input_type == 2) {
+
+            $table_head_columns = '<thead><tr>';
+            foreach (array_keys($this->data[0]) as $key => $value) {
+                $table_head_columns .= '<th>' . $value . '</th>';
+            }
+            $table_head_columns .= '</tr><thead>';
+
+            $table_body_columns = '';
+            foreach ($this->data as $key => $value) {
+                // $column_values = array_column($array, $value);
                 $table_body_columns .= '<tr>';
-                foreach ($column_values as $value) {
+                foreach ($value as $key => $value) {
                     $table_body_columns .= '<td>' . $value . '</td>';
                 }
                 $table_body_columns .= '</tr>';
             }
+            $table_body_columns = '<tbody>' . $table_body_columns . '</tbody>';
+            return '<table class="table table-bordered">' . $table_head_columns . $table_body_columns . '</table>';
+
+        } else {
+
+            $table_head_columns = '<thead><tr>';
+            $table_body_columns = '<tbody><tr>';
+            foreach ($this->data as $key => $value) {
+                $table_head_columns .= '<th>' . $key . '</th>';
+                $table_body_columns .= '<td>' . $value . '</td>';
+            }
+            $table_head_columns .= '<tr></thead>';
+            $table_body_columns .= '<tr></tbody>';
+            return '<table class="table table-bordered">' . $table_head_columns . $table_body_columns . '</table>';
         }
-        $table_head_columns .= '</thead>';
-        $table_body_columns .= '</tbody>';
-        return '<table class="table table-bordered">' . $table_head_columns . $table_body_columns . '</table>';
     }
 
     private function get_array_keys($array)
