@@ -20,7 +20,12 @@ $data = [
 
 
 $table = new DataTable();
-$html_table = $table->of($data)->toTable();
+$toTable = $table->of($data)->toTable();
+
+$toJson = $table->of($data)->toJson();
+
+$toXml = $table->of($data)->toXml();
+//echo '<pre>';
 //var_dump($html_table);
 ?>
 
@@ -46,7 +51,14 @@ $html_table = $table->of($data)->toTable();
         laborum.
     </p>
 
-    <?php echo $html_table; ?>
+    <h3>To Table</h3>
+    <?php print_r($toTable); ?>
+
+    <h3>To Json</h3>
+    <?php print_r($toJson); ?>
+
+    <h3>To XML</h3>
+    <?php print_r($toJson); ?>
 
 
 <!--    --><?php //if (count($data) > 0): ?>

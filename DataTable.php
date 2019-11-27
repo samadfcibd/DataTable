@@ -2,6 +2,8 @@
 
 namespace DT_library;
 
+use SimpleXMLElement;
+
 class DataTable
 {
 
@@ -63,6 +65,21 @@ class DataTable
             $table_body_columns .= '<tr></tbody>';
             return '<table class="table table-bordered">' . $table_head_columns . $table_body_columns . '</table>';
         }
+    }
+
+    public function toJson()
+    {
+        return json_encode($this->data);
+    }
+
+    public function toXml()
+    {
+        // Creating a object of simple XML element
+        $xml = new SimpleXMLElement('<?xml version="1.0"?><data></data>');
+
+        // function call to convert array to xml
+        array_walk_recursive($this->data, array ($xml, 'addChild'));
+        print $xml->asXML();
     }
 
     private function get_array_keys($array)
