@@ -67,6 +67,30 @@ class DataTable
         }
     }
 
+    public function addColumn($column_name, $user_function)
+    {
+
+        // Single array
+        if ($this->input_type == 1)
+        {
+
+        }
+        // Array of array
+        else {
+            $all_data = [];
+            foreach ($this->data as $row)
+            {
+//                echo '<pre>';
+//                print_r($user_function);
+//                exit;
+                $row[$column_name] = $user_function();
+                array_push($all_data, $row);
+            }
+            $this->data = $all_data;
+        }
+        return $this;
+    }
+
     public function toJson()
     {
         return json_encode($this->data);
@@ -75,11 +99,58 @@ class DataTable
     public function toXml()
     {
         // Creating a object of simple XML element
-        $xml = new SimpleXMLElement('<?xml version="1.0"?><data></data>');
+        $xml = new SimpleXMLElement('<?xml version="1.0"?><dataTable></dataTable>');
 
-        // function call to convert array to xml
-        array_walk_recursive($this->data, array ($xml, 'addChild'));
-        print $xml->asXML();
+        // Visit all key value pair
+        foreach ($this->data as $k => $v) {
+
+            // If there is nested array then
+            if (is_array($v)) {
+                $child = $xml->addChild("row_$k");
+                foreach ($v as $key => $value) {
+                    $child->addChild($key, $value);
+                }
+//                array_walk($v, function ($value, $key) use ($child) {
+//                    $child->addChild($key, $value);
+//                });
+            } else {
+                $xml->addChild($k, $v);
+            }
+        }
+        return $xml->saveXML();
+    }
+
+    public function toCSV()
+    {
+
+        $fileName = 'DataTable.csv';
+
+        header("Content-Type: application/csv; charset=UTF-8");
+        header("Content-Disposition: attachment; filename={$fileName}");
+
+        // Open file with write mode
+        $f = fopen('php://output', 'w');
+
+        // Set first row as header
+        $set_column_name = false;
+        if ($this->input_type == 1) {
+            fputcsv($f, array_keys($this->data));
+            $set_column_name = true;
+        }
+
+        foreach ($this->data as $row) {
+            // Set first row as header, if it hasn't been added yet
+            if (!$set_column_name) {
+                fputcsv($f, array_keys($row));
+                $set_column_name = true;
+            }
+
+            fputcsv($f, $row);
+        }
+        // Close the file
+        fclose($f);
+        // Make sure nothing else is sent, our file is done
+        exit;
     }
 
     private function get_array_keys($array)
