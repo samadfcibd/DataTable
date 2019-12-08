@@ -83,11 +83,14 @@ class DataTable
 //                echo '<pre>';
 //                print_r($user_function);
 //                exit;
-                $row[$column_name] = $user_function();
+                $row[$column_name] = $user_function($row);
                 array_push($all_data, $row);
             }
             $this->data = $all_data;
         }
+//        echo '<pre>';
+//        print_r($all_data);
+//        exit;
         return $this;
     }
 

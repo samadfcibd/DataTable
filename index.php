@@ -33,9 +33,13 @@ $toJson = $table->of($data)->toJson();
 $toXml = $table->of($data)->toXml();
 
 $value = 'Edit';
+$sl = 0;
 $table_after_addcolumn = $table->of($data)
+    ->addColumn('#SL', function () use (&$sl) {
+        return ++$sl;
+    })
     ->addColumn('Action', function ($data) use ($value) {
-        return '<button class="btn btn-success btn-xs">'. $data['name'] . $value .'</button>';
+        return '<button class="btn btn-success btn-xs" title="'. $data['name'] .'">'. $value .'</button>';
     })
     ->toTable();
 

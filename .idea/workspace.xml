@@ -6,6 +6,7 @@
       <change beforePath="$PROJECT_DIR$/DataTable.php" beforeDir="false" afterPath="$PROJECT_DIR$/DataTable.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
     </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -34,15 +35,15 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
-  <component name="ServiceViewManager">
-    <option name="viewStates">
+  <component name="RunDashboard">
+    <option name="ruleStates">
       <list>
-        <serviceView>
-          <treeState>
-            <expand />
-            <select />
-          </treeState>
-        </serviceView>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
       </list>
     </option>
   </component>
@@ -67,6 +68,7 @@
       <workItem from="1575195229447" duration="2782000" />
       <workItem from="1575260981249" duration="6751000" />
       <workItem from="1575780845702" duration="10294000" />
+      <workItem from="1575811884166" duration="4446000" />
     </task>
     <servers />
   </component>
@@ -91,16 +93,5 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="499" y="104" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1575794044548" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/DataTable.php</url>
-          <line>7</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
