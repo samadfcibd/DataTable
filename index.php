@@ -21,8 +21,7 @@ $data = [
 
 $table = new DataTable();
 
-if (isset($_POST['downloadCSV']))
-{
+if (isset($_POST['downloadCSV'])) {
     $table->of($data)->toCSV();
 }
 
@@ -39,8 +38,17 @@ $table_after_addcolumn = $table->of($data)
         return ++$sl;
     })
     ->addColumn('Action', function ($data) use ($value) {
-        return '<button class="btn btn-success btn-xs" title="'. $data['name'] .'">'. $value .'</button>';
+        return '<button class="btn btn-success btn-xs" title="' . $data['name'] . '">' . $value . '</button>';
     })
+    ->toTable();
+
+
+$sl1 = 0;
+$table_after_removeColumn = $table->of($data)
+    ->addColumn('#SL', function () use (&$sl1) {
+        return ++$sl1;
+    })
+    ->removeColumn('email')
     ->toTable();
 
 //$toCSV = $table->of($data)->toCSV();
@@ -60,16 +68,10 @@ $table_after_addcolumn = $table->of($data)
 <body>
 
 <div class="container" id="main-content">
-    <h2>Welcome to my website!</h2>
-    <p>Some content goes here! Let's go with the classic "lorem ipsum."</p>
-
-    <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-        laborum.
-    </p>
+    <h3>Data</h3>
+    <pre>
+        <?php print_r($data); ?>
+    </pre>
 
     <h3>To Table</h3>
     <?php print_r($toTable); ?>
@@ -87,29 +89,13 @@ $table_after_addcolumn = $table->of($data)
     <form method="post">
         <button class="btn btn-success" type="submit" value="downloadCSV" name="downloadCSV">Download CSV file</button>
     </form>
-    <br/>
-    <br/>
 
     <h3>Add Column</h3>
     <?php print_r($table_after_addcolumn); ?>
 
+    <h3>Remove Column</h3>
+    <?php print_r($table_after_removeColumn); ?>
 
-    <!--    --><?php //if (count($data) > 0): ?>
-    <!--        <table class="table table-bordered">-->
-    <!--            <thead>-->
-    <!--            <tr>-->
-    <!--                <th>--><?php //echo implode('</th><th>', array_keys(current($data))); ?><!--</th>-->
-    <!--            </tr>-->
-    <!--            </thead>-->
-    <!--            <tbody>-->
-    <!--            --><?php //foreach ($data as $row): array_map('htmlentities', $row); ?>
-    <!--                <tr>-->
-    <!--                    <td>--><?php //echo implode('</td><td>', $row); ?><!--</td>-->
-    <!--                </tr>-->
-    <!--            --><?php //endforeach; ?>
-    <!--            </tbody>-->
-    <!--        </table>-->
-    <!--    --><?php //endif; ?>
 </div>
 
 <script

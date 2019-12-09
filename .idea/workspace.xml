@@ -6,7 +6,6 @@
       <change beforePath="$PROJECT_DIR$/DataTable.php" beforeDir="false" afterPath="$PROJECT_DIR$/DataTable.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -30,20 +29,20 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="C:/xampp 5/htdocs/inventory_new" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
+  <component name="ServiceViewManager">
+    <option name="viewStates">
       <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
       </list>
     </option>
   </component>
@@ -69,6 +68,7 @@
       <workItem from="1575260981249" duration="6751000" />
       <workItem from="1575780845702" duration="10294000" />
       <workItem from="1575811884166" duration="4446000" />
+      <workItem from="1575869710043" duration="7777000" />
     </task>
     <servers />
   </component>
@@ -89,9 +89,9 @@
     </option>
   </component>
   <component name="WindowStateProjectService">
-    <state x="499" y="104" key="FileChooserDialogImpl" timestamp="1575794044548">
+    <state x="499" y="104" key="FileChooserDialogImpl" timestamp="1575864365348">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="499" y="104" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1575794044548" />
+    <state x="499" y="104" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1575864365348" />
   </component>
 </project>

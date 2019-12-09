@@ -70,26 +70,49 @@ class DataTable
     public function addColumn($column_name, $user_function)
     {
 
-        // Single array
-        if ($this->input_type == 1)
-        {
 
-        }
-        // Array of array
+        // Single array
+        if ($this->input_type == 1) {
+            $this->data[$column_name] = $user_function($this->data);
+        } // Array of array
         else {
             $all_data = [];
-            foreach ($this->data as $row)
-            {
-//                echo '<pre>';
-//                print_r($user_function);
-//                exit;
-                $row[$column_name] = $user_function($row);
+            foreach ($this->data as $row) {
+                $row[$column_name] = $user_function->__invoke($row);
                 array_push($all_data, $row);
             }
             $this->data = $all_data;
         }
 //        echo '<pre>';
-//        print_r($all_data);
+//        print_r($this->data);
+//        exit;
+        return $this;
+    }
+
+    public function removeColumn()
+    {
+        $arguments = func_get_args();
+
+        if (!empty($arguments)) {
+            if ($this->input_type == 1) {
+
+            } else {
+                $all_data = [];
+                foreach ($this->data as $row) {
+                    foreach ($arguments as $column) {
+//                        if (array_search($column, $row) !== false)
+//                        {
+                        unset($row[$column]);
+//                        }
+                    }
+                    array_push($all_data, $row);
+                }
+                $this->data = $all_data;
+            }
+        }
+
+//        echo '<pre>';
+//        print_r($arguments);
 //        exit;
         return $this;
     }
