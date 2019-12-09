@@ -95,7 +95,12 @@ class DataTable
 
         if (!empty($arguments)) {
             if ($this->input_type == 1) {
-
+                foreach ($arguments as $column) {
+//                        if (array_search($column, $row) !== false)
+//                        {
+                    unset($this->data[$column]);
+//                        }
+                }
             } else {
                 $all_data = [];
                 foreach ($this->data as $row) {
@@ -114,6 +119,23 @@ class DataTable
 //        echo '<pre>';
 //        print_r($arguments);
 //        exit;
+        return $this;
+    }
+
+    public function editColumn($column_name, $user_function)
+    {
+        if ($this->input_type == 1) {
+            $this->data[$column_name] = $user_function($this->data);
+        } // Array of array
+        else {
+            $all_data = [];
+            foreach ($this->data as $row) {
+                $row[$column_name] = $user_function($row);
+                array_push($all_data, $row);
+            }
+            $this->data = $all_data;
+        }
+
         return $this;
     }
 

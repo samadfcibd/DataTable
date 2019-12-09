@@ -48,7 +48,16 @@ $table_after_removeColumn = $table->of($data)
     ->addColumn('#SL', function () use (&$sl1) {
         return ++$sl1;
     })
+    ->addColumn('Action', function ($data) use ($value) {
+        return '<button class="btn btn-success btn-xs" title="' . $data['name'] . '">' . $value . '</button>';
+    })
     ->removeColumn('email')
+    ->toTable();
+
+$table_with_editColumn = $table->of($data)
+    ->editColumn('email', function ($data) {
+        return 'Email: ' . $data['email'];
+    })
     ->toTable();
 
 //$toCSV = $table->of($data)->toCSV();
@@ -95,6 +104,9 @@ $table_after_removeColumn = $table->of($data)
 
     <h3>Remove Column</h3>
     <?php print_r($table_after_removeColumn); ?>
+
+    <h3>Edit Column</h3>
+    <?php print_r($table_with_editColumn); ?>
 
 </div>
 
