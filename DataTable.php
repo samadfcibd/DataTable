@@ -13,20 +13,21 @@ class DataTable
      */
     private $input_type;
 
-    private $keys;
-
     private $data;
 
-    protected static $key_count;
-
-    public function of($array)
+    public function of($data)
     {
-        if (count($array) != count($array, COUNT_RECURSIVE)) {
+        if (is_object($data))
+        {
+            $data = (array) $data;
+        }
+
+        if (count($data) != count($data, COUNT_RECURSIVE)) {
             $this->input_type = 2;
-            $this->data = $array;
+            $this->data = $data;
         } else {
             $this->input_type = 1;
-            $this->data = $array;
+            $this->data = $data;
         }
         return $this;
     }
@@ -73,12 +74,14 @@ class DataTable
 
         // Single array
         if ($this->input_type == 1) {
-            $this->data[$column_name] = $user_function($this->data);
+            //$this->data[$column_name] = $user_function($this->data);
+            $this->data[$column_name] = call_user_func($user_function, $this->data);
         } // Array of array
         else {
             $all_data = [];
             foreach ($this->data as $row) {
-                $row[$column_name] = $user_function->__invoke($row);
+                //$row[$column_name] = $user_function->__invoke($row);
+                $row[$column_name] = call_user_func($user_function, $row);
                 array_push($all_data, $row);
             }
             $this->data = $all_data;
@@ -199,20 +202,5 @@ class DataTable
         fclose($f);
         // Make sure nothing else is sent, our file is done
         exit;
-    }
-
-    private function get_array_keys($array)
-    {
-        if (count($array) != count($array, COUNT_RECURSIVE)) {
-            $this->input_type = 2;
-            $key_temp = [];
-            foreach ($array as $key => $value) {
-                foreach ($value as $key => $value) {
-                    array_push($key_temp, $key);
-                }
-            }
-            return array_unique($key_temp);
-        }
-        $this->input_type = 1;
     }
 }

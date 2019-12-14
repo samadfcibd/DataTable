@@ -3,6 +3,7 @@ require('DataTable.php');
 
 use DT_library\DataTable;
 
+// Multiple array
 $data = [
     [
         'name' => 'Abdus Samad',
@@ -13,6 +14,11 @@ $data = [
         'email' => 'ahad@gmail.com'
     ]
 ];
+
+// Object
+//$data = (object) $data;
+
+// Single array
 //$data = [
 //        'name' => 'Abdus Samad',
 //        'email' => 'samadocpl@gmail.com'
@@ -77,7 +83,7 @@ $table_with_editColumn = $table->of($data)
 <body>
 
 <div class="container" id="main-content">
-    <h3>Data</h3>
+    <h3>Data-<?php echo gettype($data); ?></h3>
     <pre>
         <?php print_r($data); ?>
     </pre>
