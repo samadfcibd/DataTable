@@ -17,9 +17,8 @@ class DataTable
 
     public function of($data)
     {
-        if (is_object($data))
-        {
-            $data = (array) $data;
+        if (is_object($data)) {
+            $data = (array)$data;
         }
 
         if (count($data) != count($data, COUNT_RECURSIVE)) {
