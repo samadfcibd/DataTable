@@ -25,24 +25,28 @@ $data = [
 //];
 
 
-$table = new DataTable();
-
 if (isset($_POST['downloadCSV'])) {
-    $table->of($data)->toCSV();
+    $table = new DataTable($data);
+    $table->toCSV();
 }
 
-$toTable = $table->of($data)->toTable();
+$toTableInitiate = new DataTable($data);
+$toTable = $toTableInitiate->toTable();
 
-$toJson = $table->of($data)->toJson();
 
-$toXml = $table->of($data)->toXml();
+$toTableInitiate = new DataTable($data);
+$toJson = $toTableInitiate->toJson();
+
+
+$toTableInitiate = new DataTable($data);
+$toXml = $toTableInitiate->toXml();
 
 $value = 'Edit';
 $sl = 0;
-$table_after_addcolumn = $table->of($data)
-    ->addColumn('#SL', function () use (&$sl) {
-        return ++$sl;
-    })
+$toTableInitiate = new DataTable($data);
+$table_after_addcolumn = $toTableInitiate->addColumn('#SL', function () use (&$sl) {
+    return ++$sl;
+})
     ->addColumn('Action', function ($data) use ($value) {
         return '<button class="btn btn-success btn-xs" title="' . $data['name'] . '">' . $value . '</button>';
     })
@@ -50,26 +54,21 @@ $table_after_addcolumn = $table->of($data)
 
 
 $sl1 = 0;
-$table_after_removeColumn = $table->of($data)
-    ->addColumn('#SL', function () use (&$sl1) {
-        return ++$sl1;
-    })
+$toTableInitiate = new DataTable($data);
+$table_after_removeColumn = $toTableInitiate->addColumn('#SL', function () use (&$sl1) {
+    return ++$sl1;
+})
     ->addColumn('Action', function ($data) use ($value) {
         return '<button class="btn btn-success btn-xs" title="' . $data['name'] . '">' . $value . '</button>';
     })
     ->removeColumn('email')
     ->toTable();
 
-$table_with_editColumn = $table->of($data)
-    ->editColumn('email', function ($data) {
-        return 'Email: ' . $data['email'];
-    })
-    ->toTable();
 
-//$toCSV = $table->of($data)->toCSV();
-//echo '<pre>';
-//var_dump($html_table);
-
+$toTableInitiate = new DataTable($data);
+$table_with_editColumn = $toTableInitiate->editColumn('email', function ($data) {
+    return 'Email: ' . $data['email'];
+})->toTable();
 ?>
 
 

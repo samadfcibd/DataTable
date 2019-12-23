@@ -15,10 +15,17 @@ class DataTable
 
     private $data;
 
-    public function of($data)
+    public function __construct($data)
     {
+        // if the data is object type then convert it into array
         if (is_object($data)) {
             $data = (array)$data;
+        }
+
+        // Check data type
+        if (!is_array($data)) {
+            echo 'Data type should be array or object';
+            exit();
         }
 
         if (count($data) != count($data, COUNT_RECURSIVE)) {
@@ -28,12 +35,11 @@ class DataTable
             $this->input_type = 1;
             $this->data = $data;
         }
-        return $this;
     }
 
     public function toTable()
     {
-        if ($this->input_type == 2) {
+        if ($this->input_type === 2) {
 
             $table_head_columns = '<thead><tr>';
             foreach (array_keys($this->data[0]) as $key => $value) {
@@ -43,7 +49,6 @@ class DataTable
 
             $table_body_columns = '';
             foreach ($this->data as $key => $value) {
-                // $column_values = array_column($array, $value);
                 $table_body_columns .= '<tr>';
                 foreach ($value as $key => $value) {
                     $table_body_columns .= '<td>' . $value . '</td>';
@@ -69,25 +74,15 @@ class DataTable
 
     public function addColumn($column_name, $user_function)
     {
-
-
-        // Single array
-        if ($this->input_type == 1) {
+        if ($this->input_type === 1) {
             //$this->data[$column_name] = $user_function($this->data);
             $this->data[$column_name] = call_user_func($user_function, $this->data);
-        } // Array of array
-        else {
-            $all_data = [];
-            foreach ($this->data as $row) {
-                //$row[$column_name] = $user_function->__invoke($row);
-                $row[$column_name] = call_user_func($user_function, $row);
-                array_push($all_data, $row);
+        } else {
+            foreach ($this->data as $key => $row) {
+                //$this->data[$key][$column_name] = $user_function->__invoke($row);
+                $this->data[$key][$column_name] = call_user_func($user_function, $row);
             }
-            $this->data = $all_data;
         }
-//        echo '<pre>';
-//        print_r($this->data);
-//        exit;
         return $this;
     }
 
@@ -96,25 +91,17 @@ class DataTable
         $arguments = func_get_args();
 
         if (!empty($arguments)) {
-            if ($this->input_type == 1) {
+            if ($this->input_type === 1) {
                 foreach ($arguments as $column) {
-//                        if (array_search($column, $row) !== false)
-//                        {
                     unset($this->data[$column]);
-//                        }
                 }
             } else {
-                $all_data = [];
-                foreach ($this->data as $row) {
+                foreach ($this->data as $key => $row) {
                     foreach ($arguments as $column) {
-//                        if (array_search($column, $row) !== false)
-//                        {
-                        unset($row[$column]);
-//                        }
+                        //unset($row[$column]);
+                        unset($this->data[$key][$column]);
                     }
-                    array_push($all_data, $row);
                 }
-                $this->data = $all_data;
             }
         }
 
@@ -126,16 +113,12 @@ class DataTable
 
     public function editColumn($column_name, $user_function)
     {
-        if ($this->input_type == 1) {
+        if ($this->input_type === 1) {
             $this->data[$column_name] = $user_function($this->data);
-        } // Array of array
-        else {
-            $all_data = [];
-            foreach ($this->data as $row) {
-                $row[$column_name] = $user_function($row);
-                array_push($all_data, $row);
+        } else {
+            foreach ($this->data as $key => $row) {
+                $this->data[$key][$column_name] = $user_function($row);
             }
-            $this->data = $all_data;
         }
 
         return $this;
@@ -160,9 +143,6 @@ class DataTable
                 foreach ($v as $key => $value) {
                     $child->addChild($key, $value);
                 }
-//                array_walk($v, function ($value, $key) use ($child) {
-//                    $child->addChild($key, $value);
-//                });
             } else {
                 $xml->addChild($k, $v);
             }
@@ -183,7 +163,7 @@ class DataTable
 
         // Set first row as header
         $set_column_name = false;
-        if ($this->input_type == 1) {
+        if ($this->input_type === 1) {
             fputcsv($f, array_keys($this->data));
             $set_column_name = true;
         }
